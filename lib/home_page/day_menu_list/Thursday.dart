@@ -29,7 +29,7 @@ class _ThursdayState extends State<Thursday> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
+                    const Row(
                       children: [
                         Icon(
                           Icons.date_range,
@@ -56,12 +56,12 @@ class _ThursdayState extends State<Thursday> {
             ],
           ),
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         _showCard
             ? Card(
                 color: const Color(0xfffdeaea),
                 elevation: 4,
-                margin: EdgeInsets.all(10),
+                margin: const EdgeInsets.all(10),
                 child: Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: Container(
@@ -142,7 +142,7 @@ class _ThursdayState extends State<Thursday> {
                             ),
                           ],
                         ),
-                        Row(
+                        const Row(
                           children: [
                             Expanded(
                                 child: Divider(
@@ -182,7 +182,7 @@ class _ThursdayState extends State<Thursday> {
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         const Row(
@@ -310,7 +310,7 @@ class _ThursdayState extends State<Thursday> {
                             ),
                           ],
                         ),
-                        Row(
+                        const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
@@ -419,7 +419,7 @@ class _ThursdayState extends State<Thursday> {
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                       ],
@@ -427,7 +427,7 @@ class _ThursdayState extends State<Thursday> {
                   ),
                 ),
               )
-            : SizedBox.shrink(),
+            : const SizedBox.shrink(),
       ],
     );
   }
