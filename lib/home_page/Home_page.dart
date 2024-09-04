@@ -62,9 +62,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xffffd300),
-        title: const Text(
-          'Anna Canteen',
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
+        title: Text(
+          'Welcome to Anna Canteen',
+          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18, color: Colors.brown[800]),
         ),
         centerTitle: true,
         // actions: [
@@ -194,23 +194,21 @@ class _HomeScreenState extends State<HomeScreen> {
           onPressed: onPressed,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Row(
                 children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: 45,
-                    child: ClipOval(
-                      child: Image.asset(
-                        image,
-                        fit: BoxFit.cover,
-                        height: 60,
-                        width: 60,
-                      ),
+                  Container(
+                    width: 100,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
                     ),
+                    child: Image(image: AssetImage(image)),
                   ),
-                  const SizedBox(width: 10),
+               
+
+                  SizedBox(width: 10),
                   Text(
                     title,
                     style: const TextStyle(

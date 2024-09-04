@@ -1,26 +1,47 @@
 import 'package:flutter/material.dart';
-
 class DonetionPage extends StatefulWidget {
+  const DonetionPage({super.key});
+
   @override
-  _DonetionPage createState() => _DonetionPage();
+  State<DonetionPage> createState() => _DonetionPageState();
 }
 
-class _DonetionPage extends State<DonetionPage> {
+class _DonetionPageState extends State<DonetionPage> {
+
   final _formKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController amount = TextEditingController();
 
+  TextEditingController name2Controller = TextEditingController();
+  TextEditingController phone2Controller = TextEditingController();
+
   String selectedOption = "Contribution on Special Occasion";
   String locationType = "Preferred location";
-  String selectedDistrict = "District";
-  String selectedCity = "City";
+  String state = "state";
+  String? selectedDistrict;
+  List<String> districtNames = ['District 1', 'District 2', 'District 3'];
+  List<String> cityNames = ['City 1', 'City 2', 'City 3'];
+  List<String> addressNames = ['Address 1', 'Address 2', 'Address 3'];
+
+  String? selectedCity; // Selected city from dropdown
+  String? selectedAddress; // Selected address from dropdown
+
+
+
+
   String selectedState = "State";
-  String selectedAddress = "Address";
+
   bool isBreakfast = false;
   bool isLunch = false;
   bool isDinner = false;
   bool donation = false;
+
+  bool isBreakfast1 = false;
+  bool isLunch1 = false;
+  bool isDinner1 = false;
+
+
 
   double breakfastAmount = 5950;
   double lunchAmount = 0;
@@ -31,155 +52,908 @@ class _DonetionPage extends State<DonetionPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Donation Form',
-          style: TextStyle(color: Colors.white),
-        ),
-        backgroundColor: const Color(0xffE20736),
+        backgroundColor: Color(0xffE20736),
+        title: Text('Donation',  style:
+        TextStyle(fontWeight: FontWeight.bold, fontSize: 22, color: Colors.white)),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: <Widget>[
-                Container(
-                    height: 250,
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(20),
-                    // margin: EdgeInsets.all(10),
-                    decoration: const BoxDecoration(
-                        // borderRadius: BorderRadius.circular(40),
-                        image: DecorationImage(
-                            image: AssetImage(
-                              'assets/images/image.jpg',
-                            ),
-                            fit: BoxFit.cover))),
-                // Contribution Type
+      body:
+      SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              height: 350,
 
-                RadioListTile<String>(
-                  title: const Text('Donation'),
-                  value: 'Donation',
-                  groupValue: selectedOption,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedOption = value!;
-                    });
-                  },
-                ),
-                if (selectedOption == 'Donation')
-                  Column(
-                    children: [
-                      // Three text fields for donation
-                      TextFormField(
-                        controller: nameController,
-                        decoration: const InputDecoration(labelText: 'Name'),
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/images/image.jpg'),
+                      fit: BoxFit.cover
+
+                  )
+
+              ),
+            ),
+            SizedBox(height: 10,),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('End Hunger Today', style: TextStyle(fontSize: 26, color: Colors.red,
+                    fontWeight: FontWeight.w900),),
+                SizedBox(width: 10,),
+                Text('Donate Food, Spread Hope',  style: TextStyle(fontSize: 24, color: Colors.brown,
+                    fontWeight: FontWeight.w600),),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 50, right: 50),
+              child: Divider(
+                thickness: 1,
+                color: Colors.orange,
+              ),
+            ),
+            // SizedBox(height: 20,),
+
+            RadioListTile<String>(
+              title: const Text('Donation', style: TextStyle(color: Colors.red, fontSize: 22,
+                  fontWeight: FontWeight.w600),),
+              value: 'Donation',
+              groupValue: selectedOption,
+              onChanged: (value) {
+                setState(() {
+                  selectedOption = value!;
+                });
+              },
+              activeColor: Colors.amber.shade900,
+            ),
+            if (selectedOption == 'Donation')
+
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: nameController,
+                      decoration:
+                      const InputDecoration(
+
+                        labelText: 'Full Name',
+                        labelStyle: TextStyle(color: Colors.black, fontSize: 18,),
+                        hintText: 'Enter your full name',
+                        hintStyle: TextStyle(color: Colors.grey),
+                        border: OutlineInputBorder(
+
+
+
+                        ),
+                        prefixIcon: Icon(Icons.person, color: Colors.orange,),
+
+
+
                       ),
-                      TextFormField(
-                        controller: phoneController,
-                        decoration:
-                            const InputDecoration(labelText: 'Phone number'),
-                        keyboardType: TextInputType.number,
+
+
+
+                      keyboardType: TextInputType.text,
+
+                    ),
+                    SizedBox(height: 10,),
+
+                    TextFormField(
+                      controller: phoneController,
+                      decoration:
+                      const InputDecoration(
+
+                        labelText: 'Phone Number',
+                        labelStyle: TextStyle(color: Colors.black, fontSize: 18,),
+                        hintText: 'Enter your mobile number',
+                        hintStyle: TextStyle(color: Colors.grey),
+                        border: OutlineInputBorder(
+
+
+
+                        ),
+                        prefixIcon: Icon(Icons.phone_android, color: Colors.orange,),
+
+
+
                       ),
-                      TextFormField(
-                        controller: amount,
-                        decoration: const InputDecoration(labelText: 'Amount'),
-                        keyboardType: TextInputType.number,
+
+
+
+                      keyboardType: TextInputType.number,
+
+                    ),
+
+                    SizedBox(height: 10,),
+
+
+
+                    TextFormField(
+                      controller: amount,
+                      decoration:
+                      const InputDecoration(
+
+                        labelText: 'Donation Amount',
+                        labelStyle: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w900 ),
+                        hintText: 'Enter Amount',
+                        hintStyle: TextStyle(color: Colors.grey),
+                        border: OutlineInputBorder(
+
+
+
+                        ),
+                        prefixIcon: Icon(Icons.currency_rupee, color: Colors.orange,),
+
+
+
                       ),
-                      ElevatedButton(
+
+
+
+                      keyboardType: TextInputType.number,
+
+                    ),
+                    SizedBox(height: 20,),
+
+                    Container(
+                      width: double.infinity,
+                      height: 60,
+
+                      child: ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {}
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.red,
                           foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10), // Set the border radius to 10
+                          ),
                         ),
-                        child: const Text('Donate now'),
+
+
+                        child: const Text('Donate now', style: TextStyle(
+                            fontSize: 24
+                        ),),
                       ),
-                    ],
-                  ),
-                RadioListTile<String>(
-                  title: const Text('Contribution on Special Occasion'),
-                  value: 'Contribution on Special Occasion',
-                  groupValue: selectedOption,
-                  onChanged: (value) {
-                    setState(() {
-                      selectedOption = value!;
-                    });
-                  },
+                    ),
+
+
+                  ],
                 ),
+              ),
+            Padding(
+              padding: const EdgeInsets.only(left: 100, right: 100),
+              child: Divider(
+                thickness: 1,
+                color: Colors.grey,
+              ),
+            ),
 
-                if (selectedOption == 'Contribution on Special Occasion')
-                  Column(
-                    children: [
-                      const Text('Location'),
-                      RadioListTile<String>(
-                        title: const Text('State'),
-                        value: "State",
-                        groupValue: locationType,
-                        onChanged: (value) {
-                          setState(() {
-                            locationType = value!;
-                            donation = true;
-                          });
-                        },
-                      ),
-                      if (donation)
-                        Column(
-                          children: [
-                            // Three text fields for donation
-                            TextFormField(
-                              controller: nameController,
-                              decoration:
-                                  const InputDecoration(labelText: 'Name'),
-                            ),
 
-                            TextFormField(
-                              controller: amount,
-                              decoration:
-                                  const InputDecoration(labelText: 'Amount'),
-                              keyboardType: TextInputType.number,
-                            ),
-                            ElevatedButton(
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {}
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.red,
-                                foregroundColor: Colors.white,
-                              ),
-                              child: const Text('Donate now'),
-                            ),
-                          ],
+            RadioListTile<String>(
+              title: const Text('Contribution on Special Occasion',  style: TextStyle(color: Colors.red, fontSize: 22,
+                  fontWeight: FontWeight.w600)),
+              value: 'Contribution on Special Occasion',
+              groupValue: selectedOption,
+              onChanged: (value) {
+                setState(() {
+                  selectedOption = value!;
+                });
+
+              },
+              activeColor: Colors.amber.shade900,
+            ),
+            if(selectedOption=='Contribution on Special Occasion')
+
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: name2Controller,
+                      decoration:
+                      const InputDecoration(
+
+                        labelText: 'Full Name',
+                        labelStyle: TextStyle(color: Colors.black, fontSize: 18,),
+                        hintText: 'Enter your full name',
+                        hintStyle: TextStyle(color: Colors.grey),
+                        border: OutlineInputBorder(
+
+
+
                         ),
-                      RadioListTile<String>(
-                        title: const Text('District'),
-                        value: "District",
-                        groupValue: locationType,
-                        onChanged: (value) {
-                          setState(() {
-                            locationType = value!;
-                          });
-                        },
-                      ),
-                      RadioListTile<String>(
-                        title: const Text('Preferred location'),
-                        value: "Preferred location",
-                        groupValue: locationType,
-                        onChanged: (value) {
-                          setState(() {
-                            locationType = value!;
-                          });
-                        },
+                        prefixIcon: Icon(Icons.person, color: Colors.orange,),
+
+
+
                       ),
 
+
+
+                      keyboardType: TextInputType.text,
+
+                    ),
+                    SizedBox(height: 10,),
+
+                    TextFormField(
+                      controller: phone2Controller,
+                      decoration:
+                      const InputDecoration(
+
+                        labelText: 'Phone Number',
+                        labelStyle: TextStyle(color: Colors.black, fontSize: 18,),
+                        hintText: 'Enter your mobile number',
+                        hintStyle: TextStyle(color: Colors.grey),
+                        border: OutlineInputBorder(
+
+
+
+                        ),
+                        prefixIcon: Icon(Icons.phone_android, color: Colors.orange,),
+
+
+
+                      ),
+
+
+
+                      keyboardType: TextInputType.number,
+
+                    ),
+
+                    SizedBox(height: 10,),
+                    TextFormField(
+
+                      decoration:
+                      const InputDecoration(
+
+                        labelText: 'Date',
+                        labelStyle: TextStyle(color: Colors.black, fontSize: 18,),
+                        hintText: 'Enter your mobile number',
+                        hintStyle: TextStyle(color: Colors.grey),
+                        border: OutlineInputBorder(
+
+
+
+                        ),
+                        prefixIcon: Icon(Icons.date_range, color: Colors.orange,),
+
+
+
+                      ),
+
+
+
+                      keyboardType: TextInputType.number,
+
+                    ),
+
+                    RadioListTile<String>(
+                      title: Text('State', style: TextStyle(color: Colors.lime[900], fontSize: 20,
+                          fontWeight: FontWeight.w600)),
+                      value: "state",
+                      groupValue: locationType,
+                      onChanged: (value) {
+                        setState(() {
+                          locationType = value!;
+                        });
+                      },
+                      activeColor: Colors.amber.shade800,
+                    ),
+                    if(locationType == 'state')
+
+                      Column(
+                        children: [
+                          CheckboxListTile(
+                            title: const Text("Breakfast", style: TextStyle(fontSize: 20),),
+                            value: isBreakfast,
+                            onChanged: (newValue) {
+                              setState(() {
+                                isBreakfast = newValue!;
+                                calculateTotal();
+                              });
+                            },
+                          ),
+                          if (isBreakfast) ...[
+                            Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.all(10),
+                                color: Color(0xffffecec),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Beneficiaries per Canteen', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w400
+                                    ),),
+                                    Text('350', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w900
+                                    ),
+                                    ),
+                                  ],
+                                )
+                            ),
+                            SizedBox(height: 10,),
+                            Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.all(10),
+                                color: Color(0xffffdbda),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Number of Canteens', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w400
+                                    ),),
+                                    Text('100', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w900
+                                    ),
+                                    ),
+                                  ],
+                                )
+                            ),
+                            SizedBox(height: 10,),
+                            Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.all(10),
+                                color: Color(0xffffecec),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Meal Price', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w400
+                                    ),),
+                                    Text('17', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w900
+                                    ),
+                                    ),
+                                  ],
+                                )
+                            ),
+                            SizedBox(height: 10,),
+
+                            Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.all(10),
+                                color: Color(0xffe37c31),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text("Amount: ", style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w400, color: Colors.white
+                                    ),),
+                                    Text('$breakfastAmount', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w900, color: Colors.white
+                                    ),
+                                    ),
+                                  ],
+                                )
+                            ),
+
+                          ],
+
+
+
+                          CheckboxListTile(
+                            title: const Text("Lunch", style: TextStyle(fontSize: 20),),
+                            value: isLunch,
+                            onChanged: (newValue) {
+                              setState(() {
+                                isLunch = newValue!;
+                                lunchAmount=isLunch ? 1015000:0;
+                                calculateTotal();
+                              });
+                            },
+                          ),
+                          if(isLunch)...[
+
+                            Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.all(10),
+                                color: Color(0xffffecec),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Beneficiaries per Canteen', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w400
+                                    ),),
+                                    Text('350', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w900
+                                    ),
+                                    ),
+                                  ],
+                                )
+                            ),
+                            SizedBox(height: 10,),
+                            Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.all(10),
+                                color: Color(0xffffdbda),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Number of Canteens', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w400
+                                    ),),
+                                    Text('100', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w900
+                                    ),
+                                    ),
+                                  ],
+                                )
+                            ),
+                            SizedBox(height: 10,),
+                            Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.all(10),
+                                color: Color(0xffffecec),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Meal Price', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w400
+                                    ),),
+                                    Text('29', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w900
+                                    ),
+                                    ),
+                                  ],
+                                )
+                            ),
+                            SizedBox(height: 10,),
+
+                            Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.all(10),
+                                color: Color(0xffe37c31),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text("Amount: ", style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w400, color: Colors.white
+                                    ),),
+                                    Text('$lunchAmount', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w900, color: Colors.white
+                                    ),
+                                    ),
+                                  ],
+                                )
+                            ),
+
+                          ],
+
+
+
+                          CheckboxListTile(
+                            title: const Text("Dinner", style: TextStyle(fontSize: 20),),
+                            value: isDinner,
+                            onChanged: (newValue) {
+                              setState(() {
+                                isDinner = newValue!;
+                                dinnerAmount=isDinner ? 1015000:0;
+                                calculateTotal();
+                              });
+                            },
+                          ),
+                          if(isDinner)...[
+
+                            Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.all(10),
+                                color: Color(0xffffecec),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Beneficiaries per Canteen', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w400
+                                    ),),
+                                    Text('350', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w900
+                                    ),
+                                    ),
+                                  ],
+                                )
+                            ),
+                            SizedBox(height: 10,),
+                            Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.all(10),
+                                color: Color(0xffffdbda),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Number of Canteens', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w400
+                                    ),),
+                                    Text('100', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w900
+                                    ),
+                                    ),
+                                  ],
+                                )
+                            ),
+                            SizedBox(height: 10,),
+                            Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.all(10),
+                                color: Color(0xffffecec),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Meal Price', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w400
+                                    ),),
+                                    Text('29', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w900
+                                    ),
+                                    ),
+                                  ],
+                                )
+                            ),
+                            SizedBox(height: 10,),
+
+                            Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.all(10),
+                                color: Color(0xffe37c31),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text("Amount: ", style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w400, color: Colors.white
+                                    ),),
+                                    Text('$lunchAmount', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w900, color: Colors.white
+                                    ),
+                                    ),
+                                  ],
+                                )
+                            ),
+
+                          ],
+
+                        ],
+                      ),
+
+
+                    RadioListTile<String>(
+                      title: Text('District',  style: TextStyle(color: Colors.lime[900], fontSize: 20,
+                          fontWeight: FontWeight.w600)),
+                      value: 'District',
+                      groupValue: locationType,
+                      onChanged: (value) {
+                        setState(() {
+                          locationType = value!;
+                        });
+                      },
+                      activeColor: Colors.amber.shade800,
+                    ),
+                    if (locationType == 'District') // Show dropdown only when District is selected
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: DropdownButtonFormField<String>(
+                          decoration: const InputDecoration(
+                              labelText: "Select District",
+                              labelStyle: TextStyle(
+                                  color: Colors.black, fontSize: 20
+                              )),
+
+                          dropdownColor: Color(0xfffff8f8),
+                          value: selectedDistrict,
+                          items: districtNames.map((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          onChanged: (newValue) {
+                            setState(() {
+                              selectedDistrict = newValue!;
+                            });
+
+                          },
+                        ),
+
+                      ),
+
+                    if (locationType == 'District')
+
+
+                      Column(
+                        children: [
+                          CheckboxListTile(
+                            title: const Text("Breakfast", style: TextStyle(fontSize: 20),),
+                            value: isBreakfast1,
+                            onChanged: (newValue) {
+                              setState(() {
+                                isBreakfast1 = newValue!;
+                                calculateTotal();
+                              });
+                            },
+                          ),
+                          if (isBreakfast1) ...[
+                            Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.all(10),
+                                color: Color(0xffffecec),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Beneficiaries per Canteen', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w400
+                                    ),),
+                                    Text('350', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w900
+                                    ),
+                                    ),
+                                  ],
+                                )
+                            ),
+                            SizedBox(height: 10,),
+                            Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.all(10),
+                                color: Color(0xffffdbda),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Number of Canteens', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w400
+                                    ),),
+                                    Text('100', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w900
+                                    ),
+                                    ),
+                                  ],
+                                )
+                            ),
+                            SizedBox(height: 10,),
+                            Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.all(10),
+                                color: Color(0xffffecec),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Meal Price', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w400
+                                    ),),
+                                    Text('17', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w900
+                                    ),
+                                    ),
+                                  ],
+                                )
+                            ),
+                            SizedBox(height: 10,),
+
+                            Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.all(10),
+                                color: Color(0xffe37c31),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text("Amount: ", style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w400, color: Colors.white
+                                    ),),
+                                    Text('$breakfastAmount', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w900, color: Colors.white
+                                    ),
+                                    ),
+                                  ],
+                                )
+                            ),
+
+                          ],
+
+
+                          CheckboxListTile(
+                            title: const Text("Lunch", style: TextStyle(fontSize: 20),),
+                            value: isLunch1,
+                            onChanged: (newValue) {
+                              setState(() {
+                                isLunch1 = newValue!;
+                                lunchAmount=isLunch1 ? 1015000:0;
+                                calculateTotal();
+                              });
+                            },
+                          ),
+                          if(isLunch1)...[
+
+                            Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.all(10),
+                                color: Color(0xffffecec),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Beneficiaries per Canteen', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w400
+                                    ),),
+                                    Text('350', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w900
+                                    ),
+                                    ),
+                                  ],
+                                )
+                            ),
+                            SizedBox(height: 10,),
+                            Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.all(10),
+                                color: Color(0xffffdbda),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Number of Canteens', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w400
+                                    ),),
+                                    Text('100', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w900
+                                    ),
+                                    ),
+                                  ],
+                                )
+                            ),
+                            SizedBox(height: 10,),
+                            Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.all(10),
+                                color: Color(0xffffecec),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Meal Price', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w400
+                                    ),),
+                                    Text('29', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w900
+                                    ),
+                                    ),
+                                  ],
+                                )
+                            ),
+                            SizedBox(height: 10,),
+
+                            Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.all(10),
+                                color: Color(0xffe37c31),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text("Amount: ", style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w400, color: Colors.white
+                                    ),),
+                                    Text('$lunchAmount', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w900, color: Colors.white
+                                    ),
+                                    ),
+                                  ],
+                                )
+                            ),
+
+                          ],
+
+
+                          CheckboxListTile(
+                            title: const Text("Dinner", style: TextStyle(fontSize: 20),),
+                            value: isDinner1,
+                            onChanged: (newValue) {
+                              setState(() {
+                                isDinner1 = newValue!;
+                                dinnerAmount=isDinner1 ? 1015000:0;
+                                calculateTotal();
+                              });
+                            },
+                          ),
+                          if(isDinner1)...[
+
+                            Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.all(10),
+                                color: Color(0xffffecec),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Beneficiaries per Canteen', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w400
+                                    ),),
+                                    Text('350', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w900
+                                    ),
+                                    ),
+                                  ],
+                                )
+                            ),
+                            SizedBox(height: 10,),
+                            Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.all(10),
+                                color: Color(0xffffdbda),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Number of Canteens', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w400
+                                    ),),
+                                    Text('100', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w900
+                                    ),
+                                    ),
+                                  ],
+                                )
+                            ),
+                            SizedBox(height: 10,),
+                            Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.all(10),
+                                color: Color(0xffffecec),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Meal Price', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w400
+                                    ),),
+                                    Text('29', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w900
+                                    ),
+                                    ),
+                                  ],
+                                )
+                            ),
+                            SizedBox(height: 10,),
+
+                            Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.all(10),
+                                color: Color(0xffe37c31),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text("Amount: ", style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w400, color: Colors.white
+                                    ),),
+                                    Text('$lunchAmount', style: TextStyle(
+                                        fontSize: 18,fontWeight: FontWeight.w900, color: Colors.white
+                                    ),
+                                    ),
+                                  ],
+                                )
+                            ),
+
+                          ],
+
+                        ],
+                      ),
+
+                    RadioListTile<String>(
+                      title: Text('Preferred Location', style: TextStyle(color: Colors.lime[900], fontSize: 20,
+                          fontWeight: FontWeight.w600)),
+                      value: 'Preferred location',
+                      groupValue: locationType,
+                      onChanged: (value) {
+                        setState(() {
+                          locationType = value!;
+                        });
+
+                      },
+                      activeColor: Colors.amber.shade800,
+
+                    ),
+                    SizedBox(height: 15,),
+                    if (locationType == 'Preferred location') ...[
                       DropdownButtonFormField<String>(
+                        decoration: InputDecoration(
+                          labelText: 'Selected District',
+                          labelStyle: TextStyle(
+                              color: Colors.black, fontSize: 20
+                          ),
+                          border: OutlineInputBorder(),
+                        ),
                         value: selectedDistrict,
-                        decoration:
-                            const InputDecoration(labelText: "District"),
-                        items: <String>['District', 'District 1', 'District 2']
-                            .map((String value) {
+                        items: districtNames.map((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),
@@ -191,11 +965,19 @@ class _DonetionPage extends State<DonetionPage> {
                           });
                         },
                       ),
+
+                      SizedBox(height: 16),
+                      // City dropdown
                       DropdownButtonFormField<String>(
+                        decoration: InputDecoration(
+                          labelText: ' Selected City',
+                          labelStyle: TextStyle(
+                              color: Colors.black, fontSize: 20
+                          ),
+                          border: OutlineInputBorder(),
+                        ),
                         value: selectedCity,
-                        decoration: const InputDecoration(labelText: "City"),
-                        items: <String>['City', 'City 1', 'City 2']
-                            .map((String value) {
+                        items: cityNames.map((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),
@@ -207,11 +989,19 @@ class _DonetionPage extends State<DonetionPage> {
                           });
                         },
                       ),
+
+                      SizedBox(height: 16),
+                      // Address dropdown
                       DropdownButtonFormField<String>(
+                        decoration: InputDecoration(
+                          labelText: 'Selected Anna Canteen',
+                          labelStyle: TextStyle(
+                              color: Colors.black, fontSize: 20
+                          ),
+                          border: OutlineInputBorder(),
+                        ),
                         value: selectedAddress,
-                        decoration: const InputDecoration(labelText: "Address"),
-                        items: <String>['Address', 'Address 1', 'Address 2']
-                            .map((String value) {
+                        items: addressNames.map((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),
@@ -223,77 +1013,343 @@ class _DonetionPage extends State<DonetionPage> {
                           });
                         },
                       ),
-                      const SizedBox(height: 20),
 
-                      // Meals Selection
                       CheckboxListTile(
-                        title: const Text("Breakfast"),
-                        value: isBreakfast,
+                        title: const Text("Breakfast", style: TextStyle(fontSize: 20),),
+                        value: isBreakfast1,
                         onChanged: (newValue) {
                           setState(() {
-                            isBreakfast = newValue!;
+                            isBreakfast1 = newValue!;
                             calculateTotal();
                           });
                         },
                       ),
-                      if (isBreakfast) ...[
-                        const Text("Beneficiaries per Canteen: 350"),
-                        const Text("Number of Canteens: 35"),
-                        const Text("Meal Price: 75"),
-                        Text("Amount: $breakfastAmount"),
+                      if (isBreakfast1) ...[
+                        Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.all(10),
+                            color: Color(0xffffecec),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Beneficiaries per Canteen', style: TextStyle(
+                                    fontSize: 18,fontWeight: FontWeight.w400
+                                ),),
+                                Text('350', style: TextStyle(
+                                    fontSize: 18,fontWeight: FontWeight.w900
+                                ),
+                                ),
+                              ],
+                            )
+                        ),
+                        SizedBox(height: 10,),
+                        Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.all(10),
+                            color: Color(0xffffdbda),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Number of Canteens', style: TextStyle(
+                                    fontSize: 18,fontWeight: FontWeight.w400
+                                ),),
+                                Text('100', style: TextStyle(
+                                    fontSize: 18,fontWeight: FontWeight.w900
+                                ),
+                                ),
+                              ],
+                            )
+                        ),
+                        SizedBox(height: 10,),
+                        Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.all(10),
+                            color: Color(0xffffecec),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Meal Price', style: TextStyle(
+                                    fontSize: 18,fontWeight: FontWeight.w400
+                                ),),
+                                Text('17', style: TextStyle(
+                                    fontSize: 18,fontWeight: FontWeight.w900
+                                ),
+                                ),
+                              ],
+                            )
+                        ),
+                        SizedBox(height: 10,),
+
+                        Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.all(10),
+                            color: Color(0xffe37c31),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Amount: ", style: TextStyle(
+                                    fontSize: 18,fontWeight: FontWeight.w400, color: Colors.white
+                                ),),
+                                Text('$breakfastAmount', style: TextStyle(
+                                    fontSize: 18,fontWeight: FontWeight.w900, color: Colors.white
+                                ),
+                                ),
+                              ],
+                            )
+                        ),
+
                       ],
-                      CheckboxListTile(
-                        title: const Text("Lunch"),
-                        value: isLunch,
-                        onChanged: (newValue) {
-                          setState(() {
-                            isLunch = newValue!;
-                            lunchAmount = isLunch ? 6500 : 0;
-                            calculateTotal();
-                          });
-                        },
-                      ),
-                      CheckboxListTile(
-                        title: const Text("Dinner"),
-                        value: isDinner,
-                        onChanged: (newValue) {
-                          setState(() {
-                            isDinner = newValue!;
-                            dinnerAmount = isDinner ? 7000 : 0;
-                            calculateTotal();
-                          });
-                        },
-                      ),
 
-                      const SizedBox(height: 20),
-                      Text("Total Amount: $totalAmount",
-                          style: const TextStyle(fontWeight: FontWeight.bold)),
-                      const SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            // Handle donation submission
-                          }
+                      CheckboxListTile(
+                        title: const Text("Lunch", style: TextStyle(fontSize: 20),),
+                        value: isLunch1,
+                        onChanged: (newValue) {
+                          setState(() {
+                            isLunch1 = newValue!;
+                            lunchAmount=isLunch1 ? 1015000:0;
+                            calculateTotal();
+                          });
                         },
-                        child: const Text('Donate now'),
+                      ),
+                      if(isLunch1)...[
+
+                        Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.all(10),
+                            color: Color(0xffffecec),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Beneficiaries per Canteen', style: TextStyle(
+                                    fontSize: 18,fontWeight: FontWeight.w400
+                                ),),
+                                Text('350', style: TextStyle(
+                                    fontSize: 18,fontWeight: FontWeight.w900
+                                ),
+                                ),
+                              ],
+                            )
+                        ),
+                        SizedBox(height: 10,),
+                        Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.all(10),
+                            color: Color(0xffffdbda),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Number of Canteens', style: TextStyle(
+                                    fontSize: 18,fontWeight: FontWeight.w400
+                                ),),
+                                Text('100', style: TextStyle(
+                                    fontSize: 18,fontWeight: FontWeight.w900
+                                ),
+                                ),
+                              ],
+                            )
+                        ),
+                        SizedBox(height: 10,),
+                        Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.all(10),
+                            color: Color(0xffffecec),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Meal Price', style: TextStyle(
+                                    fontSize: 18,fontWeight: FontWeight.w400
+                                ),),
+                                Text('29', style: TextStyle(
+                                    fontSize: 18,fontWeight: FontWeight.w900
+                                ),
+                                ),
+                              ],
+                            )
+                        ),
+                        SizedBox(height: 10,),
+
+                        Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.all(10),
+                            color: Color(0xffe37c31),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Amount: ", style: TextStyle(
+                                    fontSize: 18,fontWeight: FontWeight.w400, color: Colors.white
+                                ),),
+                                Text('$lunchAmount', style: TextStyle(
+                                    fontSize: 18,fontWeight: FontWeight.w900, color: Colors.white
+                                ),
+                                ),
+                              ],
+                            )
+                        ),
+
+                      ],
+
+
+                      CheckboxListTile(
+                        title: const Text("Dinner", style: TextStyle(fontSize: 20),),
+                        value: isDinner1,
+                        onChanged: (newValue) {
+                          setState(() {
+                            isDinner1 = newValue!;
+                            dinnerAmount=isDinner1 ? 1015000:0;
+                            calculateTotal();
+                          });
+                        },
+                      ),
+                      if(isDinner1)...[
+
+                        Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.all(10),
+                            color: Color(0xffffecec),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Beneficiaries per Canteen', style: TextStyle(
+                                    fontSize: 18,fontWeight: FontWeight.w400
+                                ),),
+                                Text('350', style: TextStyle(
+                                    fontSize: 18,fontWeight: FontWeight.w900
+                                ),
+                                ),
+                              ],
+                            )
+                        ),
+                        SizedBox(height: 10,),
+                        Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.all(10),
+                            color: Color(0xffffdbda),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Number of Canteens', style: TextStyle(
+                                    fontSize: 18,fontWeight: FontWeight.w400
+                                ),),
+                                Text('100', style: TextStyle(
+                                    fontSize: 18,fontWeight: FontWeight.w900
+                                ),
+                                ),
+                              ],
+                            )
+                        ),
+                        SizedBox(height: 10,),
+                        Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.all(10),
+                            color: Color(0xffffecec),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Meal Price', style: TextStyle(
+                                    fontSize: 18,fontWeight: FontWeight.w400
+                                ),),
+                                Text('29', style: TextStyle(
+                                    fontSize: 18,fontWeight: FontWeight.w900
+                                ),
+                                ),
+                              ],
+                            )
+                        ),
+                        SizedBox(height: 10,),
+
+                        Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.all(10),
+                            color: Color(0xffe37c31),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Amount: ", style: TextStyle(
+                                    fontSize: 18,fontWeight: FontWeight.w400, color: Colors.white
+                                ),),
+                                Text('$lunchAmount', style: TextStyle(
+                                    fontSize: 18,fontWeight: FontWeight.w900, color: Colors.white
+                                ),
+                                ),
+                              ],
+                            )
+                        ),
+
+                      ],
+
+
+                    ],
+
+
+                    SizedBox(
+                      height: 20,
+                    ),
+
+                    Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.all(10),
+                        color: Color(0xff900c3f),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Total Amount: ", style: TextStyle(
+                                fontSize: 22,fontWeight: FontWeight.w400, color: Colors.white
+                            ),),
+                            Text('₹  $totalAmount', style: TextStyle(
+                                fontSize: 22,fontWeight: FontWeight.w900, color: Colors.yellow
+                            ),
+                            ),
+                          ],
+                        )
+                    ),
+
+                    SizedBox(height: 20,),
+                    Container(
+                      width: double.infinity,
+                      height: 60,
+
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {}
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.red,
                           foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10), // Set the border radius to 10
+                          ),
                         ),
+
+
+                        child: const Text('Donate now', style: TextStyle(
+                            fontSize: 24
+                        ),),
                       ),
-                    ],
-                  ),
-              ],
-            ),
-          ),
+                    ),
+
+                  ],
+
+                ),
+              ),
+
+
+          ],
+
         ),
       ),
+
     );
   }
 
   void calculateTotal() {
+    // Combining the two sets of conditions for calculating total amount
     totalAmount = (isBreakfast ? breakfastAmount : 0) +
         (isLunch ? lunchAmount : 0) +
-        (isDinner ? dinnerAmount : 0);
+        (isDinner ? dinnerAmount : 0) +
+        (isBreakfast1 ? breakfastAmount : 0) +
+        (isLunch1 ? lunchAmount : 0) +
+        (isDinner1 ? dinnerAmount : 0);
+
+    print('Total Amount: $totalAmount'); // Optional: Print the total amount for debugging
   }
 }

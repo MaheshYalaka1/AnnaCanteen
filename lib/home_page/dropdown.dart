@@ -37,10 +37,10 @@ class _DropdownState extends State<Dropdown> {
               accountEmail: Text(''),
               decoration: BoxDecoration(color: Colors.orange),
               currentAccountPicture: CircleAvatar(
-                  backgroundColor: Colors.white,
+                  backgroundColor: Color.fromARGB(255, 255, 255, 255),
                   child: Icon(
                     Icons.person,
-                    size: 40.0,
+                    size: 40.0,color: Color(0xffD3D3D3),
                   )),
             ),
             ListTile(

@@ -1261,7 +1261,7 @@ class _LocationSelectorState extends State<LocationSelector> {
       appBar: AppBar(
         title: const Text(
           'Anna Canteens Locations',
-          style: TextStyle(color: Colors.white),
+          style:  TextStyle(fontWeight: FontWeight.bold, fontSize: 22, color: Colors.white),
         ),
         backgroundColor: const Color(0xffE20736),
       ),
@@ -1275,7 +1275,18 @@ class _LocationSelectorState extends State<LocationSelector> {
             style: TextStyle(
                 fontSize: 20,
                 color: Colors.orange[700],
-                fontWeight: FontWeight.bold),
+                fontWeight: FontWeight.w900),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 40, right: 40 , top: 10),
+            child: Divider(
+              thickness: 1,
+              color: Colors.black,
+            ),
+          ),
+
+          SizedBox(
+            height: 10,
           ),
           Expanded(
             child: SingleChildScrollView(
@@ -1291,6 +1302,7 @@ class _LocationSelectorState extends State<LocationSelector> {
                       decoration: const InputDecoration(
                         labelText: 'Select District',
                         border: OutlineInputBorder(),
+
                       ),
                       value: _selectedDistrict,
                       items: _districtCityMap.keys.map((String district) {
