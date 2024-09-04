@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
@@ -14,6 +16,7 @@ class _RatingPage extends State<RatingPage> {
   bool _cleaningQualityChecked = false;
 
   double _foodrating = 0;
+  bool isLoading = false;
 
   void _submitRating(double rating) {
     // Implement your rating submission logic here
@@ -27,7 +30,8 @@ class _RatingPage extends State<RatingPage> {
         backgroundColor: const Color(0xffE20736),
         title: const Text(
           'Rate our Hygiene & Quality food ',
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20, color: Colors.white),
+          style: TextStyle(
+              fontWeight: FontWeight.w700, fontSize: 20, color: Colors.white),
         ),
       ),
       body: Column(
@@ -180,7 +184,9 @@ class _RatingPage extends State<RatingPage> {
                       height: 20,
                     ),
                     ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          PostRevices();
+                        },
                         style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xffE20736),
                             shape: RoundedRectangleBorder(
@@ -200,5 +206,48 @@ class _RatingPage extends State<RatingPage> {
         ],
       ),
     );
+  }
+
+  Future<void> PostRevices() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    String url = 'http://20.192.27.119/apac/updatereviews.aspx';
+    Map<String, String> data = {
+      'FoodQualityRating': _rating.toString(),
+      'CleaningServiceRating': _foodrating.toString(),
+      'ReviewDate': DateTime.now().toString(),
+      'CanteenLocation': 'local'
+    };
+    print("maheshtest:$data");
+    String basicAuth =
+        'Basic ' + base64Encode(utf8.encode('ellostars:ellostars'));
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: data,
+      );
+
+      if (response.statusCode == 200) {
+        final jsondata = jsonDecode(response.body);
+        print('responce:$jsondata');
+        setState(() {});
+      } else {
+        final jsondata = jsonDecode(response.body);
+        print('error data: $jsondata');
+        print('Response body: ${response.body}');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+
+    setState(() {
+      isLoading = false;
+    });
   }
 }
