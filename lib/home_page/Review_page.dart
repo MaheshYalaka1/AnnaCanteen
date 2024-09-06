@@ -23,7 +23,11 @@ class Reviewis extends StatelessWidget {
 
   Future<void> sendPostRequest() async {
     final url = 'https://annacanteenstrust.ap.gov.in/sbipaygateway.aspx';
-    final data = {'Amount': '1', 'Phonenumber': "9553611852", "Name": 'fire'};
+    final data = {
+      'Amount': '1',
+      'Phonenumber': "9553611852",
+      "Name": 'fire',
+    };
     final response = await http.post(
       Uri.parse(url),
       //headers: headers,

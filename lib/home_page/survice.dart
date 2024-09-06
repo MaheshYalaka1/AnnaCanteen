@@ -15,6 +15,7 @@ class _RatingPage extends State<RatingPage> {
   bool _foodQualityChecked = false;
   bool _cleaningQualityChecked = false;
   String? disId;
+  String? villageId;
 
   double _foodrating = 0;
   Map<String, dynamic>? selectedEvent;
@@ -205,6 +206,8 @@ class _RatingPage extends State<RatingPage> {
                           ? (Map<String, dynamic>? newValue) {
                               setState(() {
                                 selectedCity = newValue;
+                                //  villageId = cityslist!['id'].toString();
+
                                 print('Selected city: $selectedCity');
                               });
                             }
@@ -227,28 +230,6 @@ class _RatingPage extends State<RatingPage> {
                         }
                         return null;
                       },
-                    ),
-                    const Text(
-                      'Anna Canteen',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                    ),
-                    const SizedBox(height: 10),
-                    const Row(
-                      children: [
-                        Icon(
-                          Icons.location_on_rounded,
-                          color: Colors.red,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text('Rahamundry, Andhra Pradesh')
-                      ],
-                    ),
-                    Divider(
-                      color: Colors.red.shade200,
-                      thickness: 1,
                     ),
                     const SizedBox(
                       height: 10,
@@ -393,10 +374,10 @@ class _RatingPage extends State<RatingPage> {
 
     String url = 'http://20.192.27.119/apac/updatereviews.aspx';
     Map<String, String> data = {
-      'FoodQualityRating': '4',
-      'CleaningServiceRating': '5',
-      'ReviewDate': '2024-09-02 00:00:00',
-      'CanteenLocation': 'local'
+      'FoodQualityRating': _foodrating.toString(),
+      'CleaningServiceRating': _rating.toString(),
+      'ReviewDate': DateTime.now().toString(),
+      'CanteenLocation': disId!
     };
     print("maheshtest:$data");
 
