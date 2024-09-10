@@ -1261,7 +1261,8 @@ class _LocationSelectorState extends State<LocationSelector> {
       appBar: AppBar(
         title: const Text(
           'Anna Canteens Locations',
-          style:  TextStyle(fontWeight: FontWeight.bold, fontSize: 22, color: Colors.white),
+          style: TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 22, color: Colors.white),
         ),
         backgroundColor: const Color(0xffE20736),
       ),
@@ -1274,17 +1275,16 @@ class _LocationSelectorState extends State<LocationSelector> {
             'Select your Location',
             style: TextStyle(
                 fontSize: 20,
-                color: Colors.orange[700],
+                color: Color(0xffa90f2b),
                 fontWeight: FontWeight.w900),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 40, right: 40 , top: 10),
+            padding: const EdgeInsets.only(left: 60, right: 60, top: 10),
             child: Divider(
               thickness: 1,
-              color: Colors.black,
+              color: Color(0xffd06d62),
             ),
           ),
-
           SizedBox(
             height: 10,
           ),
@@ -1299,10 +1299,13 @@ class _LocationSelectorState extends State<LocationSelector> {
                       height: 10,
                     ),
                     DropdownButtonFormField<String>(
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         labelText: 'Select District',
+                        labelStyle: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w800,
+                            color: Colors.orange.shade800),
                         border: OutlineInputBorder(),
-
                       ),
                       value: _selectedDistrict,
                       items: _districtCityMap.keys.map((String district) {
@@ -1322,8 +1325,12 @@ class _LocationSelectorState extends State<LocationSelector> {
                     ),
                     const SizedBox(height: 16.0),
                     DropdownButtonFormField<String>(
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         labelText: 'Select City',
+                        labelStyle: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w800,
+                            color: Color(0xffb34020)),
                         border: OutlineInputBorder(),
                       ),
                       value: _selectedCity,
@@ -1387,15 +1394,23 @@ class _LocationSelectorState extends State<LocationSelector> {
                                   ],
                                 ),
                               ),
-                              IconButton(
-                                onPressed: () {
-                                  gotoMap(location['latitude'],
-                                      location['longitude']);
-                                },
-                                icon: Icon(
-                                  Icons.location_on,
-                                  size: 40,
-                                  color: Colors.orange.shade700,
+                              Container(
+                                height: 40,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Color(0xffffe3e0)),
+                                child: TextButton(
+                                  onPressed: () {
+                                    gotoMap(location['latitude'],
+                                        location['longitude']);
+                                  },
+                                  child: Text(
+                                    'View',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: Color(0xff8d342a),
+                                        fontWeight: FontWeight.w700),
+                                  ),
                                 ),
                               )
                             ],
@@ -1407,25 +1422,6 @@ class _LocationSelectorState extends State<LocationSelector> {
               ),
             ),
           ),
-          // if (_selectedLatLng != null)
-          //   Expanded(
-          //     flex: 1,
-          //     child: GoogleMap(
-          //       onMapCreated: _onMapCreated,
-          //       initialCameraPosition: CameraPosition(
-          //         target: _selectedLatLng!,
-          //         zoom: 14.0,
-          //       ),
-          //       markers: _selectedLatLng != null
-          //           ? {
-          //         Marker(
-          //           markerId: MarkerId('selected-location'),
-          //           position: _selectedLatLng!,
-          //         ),
-          //       }
-          //           : {},
-          //     ),
-          //   ),
         ],
       ),
     );

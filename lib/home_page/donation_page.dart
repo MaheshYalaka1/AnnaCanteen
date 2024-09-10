@@ -68,7 +68,7 @@ class _DonetionPageState extends State<DonetionPage> {
   void initState() {
     Countysget();
     canteenlenth();
-    _selectDateTime();
+
     super.initState();
   }
 
@@ -294,6 +294,7 @@ class _DonetionPageState extends State<DonetionPage> {
                     children: [
                       TextFormField(
                         controller: name2Controller,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: const InputDecoration(
                           labelText: 'Full Name',
                           labelStyle: TextStyle(
@@ -321,6 +322,7 @@ class _DonetionPageState extends State<DonetionPage> {
                       ),
                       TextFormField(
                         controller: phone2Controller,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: const InputDecoration(
                           labelText: 'Phone Number',
                           labelStyle: TextStyle(
@@ -348,6 +350,7 @@ class _DonetionPageState extends State<DonetionPage> {
                       ),
                       TextFormField(
                         controller: _dateController,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         readOnly: true,
                         decoration: InputDecoration(
                           hintText: 'Event Date',
@@ -670,7 +673,7 @@ class _DonetionPageState extends State<DonetionPage> {
                                   width: double.infinity,
                                   padding: const EdgeInsets.all(10),
                                   color: const Color(0xffffdbda),
-                                  child: const Row(
+                                  child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
@@ -681,7 +684,7 @@ class _DonetionPageState extends State<DonetionPage> {
                                             fontWeight: FontWeight.w400),
                                       ),
                                       Text(
-                                        '100',
+                                        '$totalCanteen',
                                         style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.w900),
@@ -821,12 +824,6 @@ class _DonetionPageState extends State<DonetionPage> {
                                 ),
                               );
                             }).toList(),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return "Select District";
-                              }
-                              return null;
-                            },
                           ),
                         ),
                       if (locationType == 'District')
@@ -1257,12 +1254,6 @@ class _DonetionPageState extends State<DonetionPage> {
                               ),
                             );
                           }).toList(),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "Please select District";
-                            }
-                            return null;
-                          },
                         ),
                         DropdownButtonFormField<Map<String, dynamic>>(
                           value: selectedState,
@@ -1313,12 +1304,6 @@ class _DonetionPageState extends State<DonetionPage> {
                               ),
                             );
                           }).toList(),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "Select City ";
-                            }
-                            return null;
-                          },
                         ),
                         const SizedBox(
                           height: 5,
@@ -1368,12 +1353,6 @@ class _DonetionPageState extends State<DonetionPage> {
                               ),
                             );
                           }).toList(),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "Select Canteen";
-                            }
-                            return null;
-                          },
                         ),
                         CheckboxListTile(
                             title: const Text(
@@ -1757,7 +1736,7 @@ class _DonetionPageState extends State<DonetionPage> {
                         height: 60,
                         child: ElevatedButton(
                           onPressed: () {
-                            if (_formKey.currentState!.validate()) {
+                            if (_formKey2.currentState!.validate()) {
                               Contribution(
                                   totalAmount.toString(),
                                   phone2Controller.text,
@@ -1846,11 +1825,12 @@ class _DonetionPageState extends State<DonetionPage> {
   Future<void> sendPostRequest(
       String amount, String ponumber, String name, String Dates) async {
     final url = 'https://annacanteenstrust.ap.gov.in/sbipaygateway.aspx';
+    String mahesh = DateFormat('yyyy-MM-dd').format(DateTime.now());
     final data = {
       'Amount': amount,
       'Phonenumber': ponumber,
       "Name": name,
-      "Date": DateTime.now().toString()
+      "Date": mahesh,
     };
     final response = await http.post(
       Uri.parse(url),
@@ -1890,6 +1870,8 @@ class _DonetionPageState extends State<DonetionPage> {
       //headers: headers,
       body: data,
     );
+
+    print('contrydate$data');
 
     if (response.statusCode == 200) {
       final jsondata = jsonDecode(response.body);

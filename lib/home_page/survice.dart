@@ -16,6 +16,11 @@ class _RatingPage extends State<RatingPage> {
   bool _cleaningQualityChecked = false;
   String? disId;
   String? villageId;
+  final _formkey = GlobalKey<FormState>();
+  int? total;
+
+  double getfoodreview = 0;
+  double getcleaningreview = 0;
 
   double _foodrating = 0;
   Map<String, dynamic>? selectedEvent;
@@ -26,6 +31,8 @@ class _RatingPage extends State<RatingPage> {
   Map<String, dynamic>? selectedState;
   List<Map<String, dynamic>> cityslist = [];
   Map<String, dynamic>? selectedCity;
+
+  bool isget = false;
 
   void _submitRating(double rating) {
     // Implement your rating submission logic here
@@ -49,322 +56,506 @@ class _RatingPage extends State<RatingPage> {
               fontWeight: FontWeight.w700, fontSize: 20, color: Colors.white),
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: const Color(0xfffff2f2)),
-              width: double.infinity,
-              padding: const EdgeInsets.all(10),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    DropdownButtonFormField<Map<String, dynamic>>(
-                      value: selectedEvent,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      decoration: InputDecoration(
-                        hintText: "Please select County",
-                        hintStyle: const TextStyle(color: Colors.black26),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(9.0),
-                          borderSide: const BorderSide(
-                            color: Color.fromARGB(255, 246, 245, 245),
-                            width: 1.0,
-                          ),
-                        ),
-                        contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 16),
-                        enabledBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.white,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.orange.shade400),
-                        ),
-                        fillColor: Color(0xffff8f),
-                        filled: true,
-                      ),
-                      onChanged: (Map<String, dynamic>? newValue) {
-                        setState(() {
-                          selectedEvent = newValue;
-                          selectedState = null;
-                          stateList = [];
-                          print('Selected country: $selectedEvent');
-                          disId = selectedEvent!['id'].toString();
-                          print('just id $disId');
-                        });
-                        StatesApi();
-                      },
-                      items: eventList
-                          .map<DropdownMenuItem<Map<String, dynamic>>>(
-                              (Map<String, dynamic> value) {
-                        return DropdownMenuItem<Map<String, dynamic>>(
-                          value: value,
-                          child: Text(
-                            value['name'],
-                            style:
-                                const TextStyle(fontWeight: FontWeight.normal),
-                          ),
-                        );
-                      }).toList(),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Please select County";
-                        }
-                        return null;
-                      },
-                    ),
-                    DropdownButtonFormField<Map<String, dynamic>>(
-                      value: selectedState,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      decoration: InputDecoration(
-                        hintText: "Please select State",
-                        hintStyle: const TextStyle(color: Colors.black26),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(9.0),
-                          borderSide: const BorderSide(
-                            color: Color.fromARGB(255, 246, 245, 245),
-                            width: 1.0,
-                          ),
-                        ),
-                        contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 16),
-                        enabledBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.white,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.orange.shade400),
-                        ),
-                        fillColor: Color(0xffff8f),
-                        filled: true,
-                      ),
-                      onChanged: (Map<String, dynamic>? newValue) {
-                        setState(() {
-                          selectedState = newValue;
-                          String selecteddata = selectedEvent!['id'].toString();
-                          print('selecteddata$selecteddata');
-                          print('Selected state: $selectedState');
-                        });
-                        cityesApis();
-                      },
-                      items: stateList
-                          .map<DropdownMenuItem<Map<String, dynamic>>>(
-                              (Map<String, dynamic> value) {
-                        return DropdownMenuItem<Map<String, dynamic>>(
-                          value: value,
-                          child: Text(
-                            value['name'],
-                            style:
-                                const TextStyle(fontWeight: FontWeight.normal),
-                          ),
-                        );
-                      }).toList(),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Please select State";
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    DropdownButtonFormField<Map<String, dynamic>>(
-                      value: selectedCity,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      decoration: InputDecoration(
-                        hintText: "Please select City",
-                        hintStyle: const TextStyle(color: Colors.black26),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(9.0),
-                          borderSide: const BorderSide(
-                            color: Color.fromARGB(255, 246, 245, 245),
-                            width: 1.0,
-                          ),
-                        ),
-                        contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 16),
-                        enabledBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.orange.shade400),
-                        ),
-                        fillColor: Color(0xffff8f),
-                        filled: true,
-                      ),
-                      onChanged: cityslist.isNotEmpty
-                          ? (Map<String, dynamic>? newValue) {
-                              setState(() {
-                                selectedCity = newValue;
-                                //  villageId = cityslist!['id'].toString();
-
-                                print('Selected city: $selectedCity');
-                              });
-                            }
-                          : null,
-                      items: cityslist
-                          .map<DropdownMenuItem<Map<String, dynamic>>>(
-                              (Map<String, dynamic> value) {
-                        return DropdownMenuItem<Map<String, dynamic>>(
-                          value: value,
-                          child: Text(
-                            value['name'],
-                            style:
-                                const TextStyle(fontWeight: FontWeight.normal),
-                          ),
-                        );
-                      }).toList(),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Please select City";
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      height: 80,
-                      width: double.infinity,
-                      color: const Color(0xffe4f7e1),
-                      child: Stack(
-                        children: [
-                          Container(
-                            width: 80,
-                            height: 80,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                image: AssetImage('assets/images/dish.png'),
-                              ),
+      body: Form(
+        key: _formkey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: const Color(0xfffff2f2)),
+                width: double.infinity,
+                padding: const EdgeInsets.all(10),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      DropdownButtonFormField<Map<String, dynamic>>(
+                        value: selectedEvent,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        decoration: InputDecoration(
+                          hintText: "Select District",
+                          hintStyle: const TextStyle(color: Colors.black26),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(9.0),
+                            borderSide: const BorderSide(
+                              color: Color.fromARGB(255, 246, 245, 245),
+                              width: 1.0,
                             ),
                           ),
-                          Positioned(
-                              left: 80,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    'Food Quality Reviews',
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w700),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  RatingBar.builder(
-                                    initialRating: _foodrating,
-                                    minRating: 1,
-                                    itemSize: 30,
-                                    itemBuilder: (context, _) => const Icon(
-                                      Icons.star,
-                                      color: Colors.amber,
-                                    ),
-                                    onRatingUpdate: (rating) {
-                                      setState(() {
-                                        _foodrating = rating;
-                                      });
-                                      _submitRating(rating);
-                                    },
-                                  ),
-                                ],
-                              ))
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      height: 80,
-                      width: double.infinity,
-                      color: const Color(0xffd9f3ff),
-                      child: Stack(
-                        children: [
-                          Container(
-                            width: 80,
-                            height: 80,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                image: AssetImage('assets/images/clean.png'),
-                              ),
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 16),
+                          enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.white,
                             ),
                           ),
-                          Positioned(
-                              left: 80,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    'Cleaning Service Reviews',
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w700),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  RatingBar.builder(
-                                    initialRating: _rating,
-                                    minRating: 1,
-                                    itemSize: 30,
-                                    itemBuilder: (context, _) => const Icon(
-                                      Icons.star,
-                                      color: Colors.amber,
-                                    ),
-                                    onRatingUpdate: (rating) {
-                                      setState(() {
-                                        _rating = rating;
-                                      });
-                                      _submitRating(rating);
-                                    },
-                                  ),
-                                ],
-                              ))
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    ElevatedButton(
-                        onPressed: () {
-                          PostRevices();
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.orange.shade400),
+                          ),
+                          fillColor: Color(0xffff8f),
+                          filled: true,
+                        ),
+                        onChanged: (Map<String, dynamic>? newValue) {
+                          setState(() {
+                            selectedEvent = newValue;
+                            selectedState = null;
+                            stateList = [];
+                            print('Selected country: $selectedEvent');
+                            disId = selectedEvent!['id'].toString();
+                            print('just id $disId');
+                          });
+                          StatesApi();
                         },
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xffE20736),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8.0),
+                        items: eventList
+                            .map<DropdownMenuItem<Map<String, dynamic>>>(
+                                (Map<String, dynamic> value) {
+                          return DropdownMenuItem<Map<String, dynamic>>(
+                            value: value,
+                            child: Text(
+                              value['name'],
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.normal),
                             ),
-                            minimumSize: const Size(double.infinity, 50)),
-                        child: const Text(
-                          'Submit',
-                          style: TextStyle(fontSize: 20, color: Colors.white),
-                        ))
-                  ],
+                          );
+                        }).toList(),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Select District";
+                          }
+                          return null;
+                        },
+                      ),
+                      DropdownButtonFormField<Map<String, dynamic>>(
+                        value: selectedState,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        decoration: InputDecoration(
+                          hintText: "Select City",
+                          hintStyle: const TextStyle(color: Colors.black26),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(9.0),
+                            borderSide: const BorderSide(
+                              color: Color.fromARGB(255, 246, 245, 245),
+                              width: 1.0,
+                            ),
+                          ),
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 16),
+                          enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.white,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.orange.shade400),
+                          ),
+                          fillColor: Color(0xffff8f),
+                          filled: true,
+                        ),
+                        onChanged: (Map<String, dynamic>? newValue) {
+                          setState(() {
+                            selectedState = newValue;
+                            String selecteddata =
+                                selectedEvent!['id'].toString();
+                            print('selecteddata$selecteddata');
+                            print('Selected state: $selectedState');
+                          });
+                          cityesApis();
+                        },
+                        items: stateList
+                            .map<DropdownMenuItem<Map<String, dynamic>>>(
+                                (Map<String, dynamic> value) {
+                          return DropdownMenuItem<Map<String, dynamic>>(
+                            value: value,
+                            child: Text(
+                              value['name'],
+                              style: const TextStyle(
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Select City";
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      DropdownButtonFormField<Map<String, dynamic>>(
+                        value: selectedCity,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        decoration: InputDecoration(
+                          hintText: "Select Canteen",
+                          hintStyle: const TextStyle(color: Colors.black26),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(9.0),
+                            borderSide: const BorderSide(
+                              color: Color.fromARGB(255, 246, 245, 245),
+                              width: 1.0,
+                            ),
+                          ),
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 16),
+                          enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.orange.shade400),
+                          ),
+                          fillColor: const Color(0xffff8f),
+                          filled: true,
+                        ),
+                        onChanged: cityslist.isNotEmpty
+                            ? (Map<String, dynamic>? newValue) {
+                                setState(() {
+                                  selectedCity = newValue;
+                                  // Print the selected city's ID
+                                  if (selectedCity != null) {
+                                    villageId = selectedCity!['id'];
+                                    print(
+                                        "Selected city ID: ${selectedCity!['id']}");
+                                  }
+                                });
+                              }
+                            : null,
+                        items: cityslist
+                            .map<DropdownMenuItem<Map<String, dynamic>>>(
+                                (Map<String, dynamic> value) {
+                          return DropdownMenuItem<Map<String, dynamic>>(
+                            value: value,
+                            child: Flexible(
+                              child: Text(
+                                value['name'],
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 13),
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Select Canteen";
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        height: 80,
+                        width: double.infinity,
+                        color: const Color(0xffe4f7e1),
+                        child: Stack(
+                          children: [
+                            Container(
+                              width: 80,
+                              height: 80,
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                  image: AssetImage('assets/images/dish.png'),
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                                left: 80,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'Food Quality Reviews',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    RatingBar.builder(
+                                      initialRating: _foodrating,
+                                      minRating: 1,
+                                      itemSize: 30,
+                                      itemBuilder: (context, _) => const Icon(
+                                        Icons.star,
+                                        color: Colors.amber,
+                                      ),
+                                      onRatingUpdate: (rating) {
+                                        setState(() {
+                                          _foodrating = rating;
+                                        });
+                                        _submitRating(rating);
+                                      },
+                                    ),
+                                  ],
+                                ))
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        height: 80,
+                        width: double.infinity,
+                        color: const Color(0xffd9f3ff),
+                        child: Stack(
+                          children: [
+                            Container(
+                              width: 80,
+                              height: 80,
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                  image: AssetImage('assets/images/clean.png'),
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                                left: 80,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'Cleaning Service Reviews',
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    RatingBar.builder(
+                                      initialRating: _rating,
+                                      minRating: 1,
+                                      itemSize: 30,
+                                      itemBuilder: (context, _) => const Icon(
+                                        Icons.star,
+                                        color: Colors.amber,
+                                      ),
+                                      onRatingUpdate: (rating) {
+                                        setState(() {
+                                          _rating = rating;
+                                        });
+                                        _submitRating(rating);
+                                      },
+                                    ),
+                                  ],
+                                ))
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      ElevatedButton(
+                          onPressed: () {
+                            if (_formkey.currentState!.validate())
+                              PostRevices();
+                          },
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xffE20736),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              minimumSize: const Size(double.infinity, 50)),
+                          child: const Text(
+                            'Submit',
+                            style: TextStyle(fontSize: 20, color: Colors.white),
+                          )),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      if (isget == true)
+                        Column(
+                          children: [
+                            // For food review
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              height: 80,
+                              width: double.infinity,
+                              color: const Color(0xffe4f7e1),
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    width: 80,
+                                    height: 80,
+                                    child: Text(
+                                      getfoodreview.toString(),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 25,
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    left: 80,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text(
+                                          'Food Quality Reviews',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Row(
+                                          children: [
+                                            RatingBarIndicator(
+                                              rating: getfoodreview,
+                                              itemBuilder: (context, index) =>
+                                                  const Icon(
+                                                Icons.star,
+                                                color: Colors.amber,
+                                              ),
+                                              itemSize: 30,
+                                            ),
+                                            SizedBox(width: 10),
+                                            Text("($total)")
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            // For cleaning review
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              height: 80,
+                              width: double.infinity,
+                              color: const Color(0xffd9f3ff),
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    width: 80,
+                                    height: 80,
+                                    child: Text(
+                                      getcleaningreview.toString(),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 25,
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    left: 80,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text(
+                                          'Cleaning Service Reviews',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Row(
+                                          children: [
+                                            RatingBarIndicator(
+                                              rating: getcleaningreview,
+                                              itemBuilder: (context, index) =>
+                                                  const Icon(
+                                                Icons.star,
+                                                color: Colors.amber,
+                                              ),
+                                              itemSize: 30,
+                                            ),
+                                            SizedBox(width: 10),
+                                            Text("($total)")
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        )
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          //const SizedBox(height: 20),
-        ],
+            //const SizedBox(height: 20),
+          ],
+        ),
       ),
     );
+  }
+
+  Future<void> getreviews() async {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> data = {
+      'FoodQualityRating': _foodrating.toString(),
+      'CleaningServiceRating': _rating.toString(),
+      'ReviewDate': DateTime.now().toString(),
+      'CanteenLocation': villageId!
+    };
+    // print("maheshtest:$data");
+
+    String url =
+        'http://20.192.27.119/apac/DistrictHandler.ashx?action=getReviews&canteenid=$villageId';
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        // body: data,
+      );
+
+      if (response.statusCode == 200) {
+        final jsondata = jsonDecode(response.body);
+        setState(() {
+          getfoodreview =
+              jsondata['Reviews'][0]['OverallFoodQualityRating'].toDouble();
+          getcleaningreview =
+              jsondata['Reviews'][0]['OverallCleaningServiceRating'].toDouble();
+          total = jsondata['TotalReviews'];
+        });
+
+        setState(() {
+          isget = true;
+        });
+      } else {
+        print('Request failed with status: ${response.statusCode}');
+        print('Response body: ${response.body}');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+
+    setState(() {
+      isLoading = false;
+    });
   }
 
   Future<void> PostRevices() async {
@@ -377,7 +568,7 @@ class _RatingPage extends State<RatingPage> {
       'FoodQualityRating': _foodrating.toString(),
       'CleaningServiceRating': _rating.toString(),
       'ReviewDate': DateTime.now().toString(),
-      'CanteenLocation': disId!
+      'CanteenLocation': villageId!
     };
     print("maheshtest:$data");
 
@@ -400,6 +591,7 @@ class _RatingPage extends State<RatingPage> {
           // Handle non-JSON response
           print('response (non-JSON): ${response.body}');
         }
+        getreviews();
 
         setState(() {});
       } else {

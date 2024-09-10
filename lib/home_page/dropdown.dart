@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mahesh_map/home_page/About_page.dart';
-import 'package:mahesh_map/home_page/Review_page.dart';
+// import 'package:mahesh_map/home_page/About_page.dart';
+// import 'package:mahesh_map/home_page/Review_page.dart';
 import 'package:mahesh_map/home_page/donation_page.dart';
 import 'package:mahesh_map/home_page/foodList_page.dart';
 import 'package:mahesh_map/home_page/nearLocation.dart';
@@ -80,17 +80,17 @@ class _DropdownState extends State<Dropdown> {
                     MaterialPageRoute(builder: (context) => DonetionPage()));
               },
             ),
-            ListTile(
-              leading: Icon(
-                Icons.file_open_rounded,
-                color: Colors.orange.shade800,
-              ),
-              title: const Text('About'),
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Reviewis()));
-              },
-            ),
+            // ListTile(
+            //   leading: Icon(
+            //     Icons.file_open_rounded,
+            //     color: Colors.orange.shade800,
+            //   ),
+            //   title: const Text('About'),
+            //   onTap: () {
+            //     Navigator.push(context,
+            //         MaterialPageRoute(builder: (context) => Reviewis()));
+            //   },
+            // ),
             ListTile(
               leading: Icon(
                 Icons.location_on,

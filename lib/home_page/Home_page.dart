@@ -64,7 +64,10 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: const Color(0xffffd300),
         title: Text(
           'Welcome to Anna Canteen',
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18, color: Colors.brown[800]),
+          style: TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 18,
+              color: Colors.brown[800]),
         ),
         centerTitle: true,
         // actions: [
@@ -187,7 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
         height: 90,
         width: double.infinity,
         decoration: BoxDecoration(
-          color: const Color(0xffFFEBE6),
+          color: const Color(0xffFFF8DC),
           borderRadius: BorderRadius.circular(10),
         ),
         child: CupertinoButton(
@@ -206,8 +209,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     child: Image(image: AssetImage(image)),
                   ),
-               
-
                   SizedBox(width: 10),
                   Text(
                     title,
