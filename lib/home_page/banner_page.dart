@@ -24,8 +24,8 @@ class _bannerState extends State<banner> {
           options: CarouselOptions(
               autoPlay: true,
               height: 250,
-              autoPlayAnimationDuration: Duration(milliseconds: 800),
-              autoPlayInterval: Duration(seconds: 5),
+              autoPlayAnimationDuration: const Duration(milliseconds: 800),
+              autoPlayInterval: const Duration(seconds: 5),
               enlargeCenterPage: true,
               aspectRatio: 2.0,
               onPageChanged: (index, reson) {
@@ -36,7 +36,7 @@ class _bannerState extends State<banner> {
       AnimatedSmoothIndicator(
           activeIndex: myCurrentIndex,
           count: 3, // Number of items in the carousel
-          effect: WormEffect(
+          effect: const WormEffect(
             activeDotColor: Color(0xffE10636),
             dotColor: Color(0xffFFD300),
             dotHeight: 8,

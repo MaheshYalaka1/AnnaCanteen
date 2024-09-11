@@ -24,7 +24,7 @@ class splash_screen extends StatelessWidget {
       centered: true,
       duration: 2000,
       nextScreen: const Tabbar_screen(),
-      backgroundColor: const Color(0xffFFE9DF),
+      backgroundColor: const Color(0xffffeeb2),
     );
   }
 }

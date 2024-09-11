@@ -59,7 +59,7 @@ class _SaturdayState extends State<Saturday> {
         SizedBox(height: 20),
         _showCard
             ? Card(
-                color: const Color(0xfffdeaea),
+                color: const Color(0xfffffdee),
                 elevation: 4,
                 margin: EdgeInsets.all(10),
                 child: Padding(

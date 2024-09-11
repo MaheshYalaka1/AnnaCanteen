@@ -61,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xffffd300),
+        backgroundColor: const Color(0xffffd340),
         title: Text(
           'Welcome to Anna Canteen',
           style: TextStyle(
@@ -86,6 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
         // ],
       ),
       drawer: const Dropdown(),
+      backgroundColor: const Color(0xffFFF8DC),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -190,7 +191,7 @@ class _HomeScreenState extends State<HomeScreen> {
         height: 90,
         width: double.infinity,
         decoration: BoxDecoration(
-          color: const Color(0xffFFF8DC),
+          color: const Color.fromARGB(255, 249, 235, 188),
           borderRadius: BorderRadius.circular(10),
         ),
         child: CupertinoButton(

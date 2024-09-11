@@ -1266,6 +1266,7 @@ class _LocationSelectorState extends State<LocationSelector> {
         ),
         backgroundColor: const Color(0xffE20736),
       ),
+      backgroundColor: const Color(0xffFFF8DC),
       body: Column(
         children: [
           const SizedBox(
@@ -1398,7 +1399,7 @@ class _LocationSelectorState extends State<LocationSelector> {
                                 height: 40,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
-                                    color: Color(0xffffe3e0)),
+                                    color: Color(0xffffd700)),
                                 child: TextButton(
                                   onPressed: () {
                                     gotoMap(location['latitude'],
@@ -1408,7 +1409,7 @@ class _LocationSelectorState extends State<LocationSelector> {
                                     'View',
                                     style: TextStyle(
                                         fontSize: 16,
-                                        color: Color(0xff8d342a),
+                                        color: Color.fromARGB(255, 141, 52, 42),
                                         fontWeight: FontWeight.w700),
                                   ),
                                 ),

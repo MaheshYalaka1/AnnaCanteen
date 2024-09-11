@@ -19,11 +19,13 @@ class _FoodList extends State<FoodList> {
     return Scaffold(
         appBar: AppBar(
           title: const Text(
-            'Food list',style:
-            TextStyle(fontWeight: FontWeight.bold, fontSize: 22, color: Colors.white),
+            'Food list',
+            style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 22, color: Colors.white),
           ),
           backgroundColor: const Color(0xffE20736),
         ),
+        backgroundColor: Color(0xffFFF8DC),
         body: SingleChildScrollView(
           child: Column(
             children: [

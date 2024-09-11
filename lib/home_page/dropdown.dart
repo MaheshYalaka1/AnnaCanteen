@@ -27,7 +27,7 @@ class _DropdownState extends State<Dropdown> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-        backgroundColor: const Color(0xfffff8f8),
+        backgroundColor: const Color(0xffFFF8DC),
         child: ListView(
           children: [
             const UserAccountsDrawerHeader(
@@ -76,8 +76,10 @@ class _DropdownState extends State<Dropdown> {
               ),
               title: const Text('Donation'),
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => DonetionPage()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const DonetionPage()));
               },
             ),
             // ListTile(

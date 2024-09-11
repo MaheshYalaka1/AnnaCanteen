@@ -31,7 +31,7 @@ class _home_pageState extends State<Tabbar_screen> {
         backgroundColor: const Color(0xfffff8f8),
         color: const Color(0xffE20736),
         animationDuration: const Duration(milliseconds: 300),
-        items: const [
+        items: [
           Icon(
             Icons.home,
             color: Colors.white,
@@ -40,10 +40,10 @@ class _home_pageState extends State<Tabbar_screen> {
             Icons.location_on,
             color: Colors.white,
           ),
-          Icon(
-            Icons.currency_rupee,
-            color: Colors.white,
-          )
+          Image.asset(
+            'assets/images/icon.png',
+            width: 30,
+          ),
         ],
         onTap: (index) {
           setState(() {

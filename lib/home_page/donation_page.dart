@@ -58,11 +58,19 @@ class _DonetionPageState extends State<DonetionPage> {
   bool isLunch2 = false;
   bool isDinner2 = false;
 
-  int breakfastAmount = 5950;
+  double breakfastAmount = 5950;
   double lunchAmount = 10150;
   double dinnerAmount = 10150;
   double totalAmount = 0;
   int? totalCanteen;
+
+  double? Statebrack;
+  double? Statelunch;
+  double? Statedine;
+
+  double? disbrack;
+  double? dislucnch;
+  double? disdin;
 
   @override
   void initState() {
@@ -83,6 +91,7 @@ class _DonetionPageState extends State<DonetionPage> {
                 fontSize: 22,
                 color: Colors.white)),
       ),
+      backgroundColor: const Color(0xffFFF8DC),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -238,7 +247,6 @@ class _DonetionPageState extends State<DonetionPage> {
                         height: 60,
                         child: ElevatedButton(
                           onPressed: () {
-                            print('tapme');
                             if (_formKey.currentState!.validate()) {
                               sendPostRequest(amount.text, phoneController.text,
                                   nameController.text, formattedDateTime);
@@ -417,7 +425,7 @@ class _DonetionPageState extends State<DonetionPage> {
                               Container(
                                   width: double.infinity,
                                   padding: const EdgeInsets.all(10),
-                                  color: const Color(0xffffecec),
+                                  color: const Color(0xffffe37e),
                                   child: const Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -432,7 +440,8 @@ class _DonetionPageState extends State<DonetionPage> {
                                         '350',
                                         style: TextStyle(
                                             fontSize: 18,
-                                            fontWeight: FontWeight.w900),
+                                            fontWeight: FontWeight.w900,
+                                            color: Colors.black),
                                       ),
                                     ],
                                   )),
@@ -442,7 +451,7 @@ class _DonetionPageState extends State<DonetionPage> {
                               Container(
                                   width: double.infinity,
                                   padding: const EdgeInsets.all(10),
-                                  color: const Color(0xffffdbda),
+                                  color: const Color(0xffffeeb2),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -457,7 +466,8 @@ class _DonetionPageState extends State<DonetionPage> {
                                         '$totalCanteen',
                                         style: const TextStyle(
                                             fontSize: 18,
-                                            fontWeight: FontWeight.w900),
+                                            fontWeight: FontWeight.w900,
+                                            color: Colors.black),
                                       ),
                                     ],
                                   )),
@@ -467,7 +477,7 @@ class _DonetionPageState extends State<DonetionPage> {
                               Container(
                                   width: double.infinity,
                                   padding: const EdgeInsets.all(10),
-                                  color: const Color(0xffffecec),
+                                  color: const Color(0xffffe37e),
                                   child: const Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -482,7 +492,8 @@ class _DonetionPageState extends State<DonetionPage> {
                                         '17',
                                         style: TextStyle(
                                             fontSize: 18,
-                                            fontWeight: FontWeight.w900),
+                                            fontWeight: FontWeight.w900,
+                                            color: Colors.black),
                                       ),
                                     ],
                                   )),
@@ -505,7 +516,7 @@ class _DonetionPageState extends State<DonetionPage> {
                                             color: Colors.white),
                                       ),
                                       Text(
-                                        (totalAmount).toString(),
+                                        ("$Statebrack"),
                                         style: const TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.w900,
@@ -532,7 +543,7 @@ class _DonetionPageState extends State<DonetionPage> {
                               Container(
                                   width: double.infinity,
                                   padding: const EdgeInsets.all(10),
-                                  color: const Color(0xffffecec),
+                                  color: const Color(0xffffe37e),
                                   child: const Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -557,8 +568,8 @@ class _DonetionPageState extends State<DonetionPage> {
                               Container(
                                   width: double.infinity,
                                   padding: const EdgeInsets.all(10),
-                                  color: const Color(0xffffdbda),
-                                  child: const Row(
+                                  color: const Color(0xffffeeb2),
+                                  child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
@@ -569,8 +580,8 @@ class _DonetionPageState extends State<DonetionPage> {
                                             fontWeight: FontWeight.w400),
                                       ),
                                       Text(
-                                        '10',
-                                        style: TextStyle(
+                                        '$totalCanteen',
+                                        style: const TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.w900),
                                       ),
@@ -582,7 +593,7 @@ class _DonetionPageState extends State<DonetionPage> {
                               Container(
                                   width: double.infinity,
                                   padding: const EdgeInsets.all(10),
-                                  color: const Color(0xffffecec),
+                                  color: const Color(0xffffe37e),
                                   child: const Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -620,7 +631,7 @@ class _DonetionPageState extends State<DonetionPage> {
                                             color: Colors.white),
                                       ),
                                       Text(
-                                        '$lunchAmount',
+                                        '$Statelunch',
                                         style: const TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.w900,
@@ -647,7 +658,7 @@ class _DonetionPageState extends State<DonetionPage> {
                               Container(
                                   width: double.infinity,
                                   padding: const EdgeInsets.all(10),
-                                  color: const Color(0xffffecec),
+                                  color: const Color(0xffffe37e),
                                   child: const Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -672,7 +683,7 @@ class _DonetionPageState extends State<DonetionPage> {
                               Container(
                                   width: double.infinity,
                                   padding: const EdgeInsets.all(10),
-                                  color: const Color(0xffffdbda),
+                                  color: const Color(0xffffeeb2),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -697,7 +708,7 @@ class _DonetionPageState extends State<DonetionPage> {
                               Container(
                                   width: double.infinity,
                                   padding: const EdgeInsets.all(10),
-                                  color: const Color(0xffffecec),
+                                  color: const Color(0xffffe37e),
                                   child: const Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -735,7 +746,7 @@ class _DonetionPageState extends State<DonetionPage> {
                                             color: Colors.white),
                                       ),
                                       Text(
-                                        '$lunchAmount',
+                                        '$Statedine',
                                         style: const TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.w900,
@@ -847,7 +858,7 @@ class _DonetionPageState extends State<DonetionPage> {
                               Container(
                                   width: double.infinity,
                                   padding: const EdgeInsets.all(10),
-                                  color: const Color(0xffffecec),
+                                  color: const Color(0xffffe37e),
                                   child: const Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -872,7 +883,7 @@ class _DonetionPageState extends State<DonetionPage> {
                               Container(
                                   width: double.infinity,
                                   padding: const EdgeInsets.all(10),
-                                  color: const Color(0xffffdbda),
+                                  color: const Color(0xffffeeb2),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -897,7 +908,7 @@ class _DonetionPageState extends State<DonetionPage> {
                               Container(
                                   width: double.infinity,
                                   padding: const EdgeInsets.all(10),
-                                  color: const Color(0xffffecec),
+                                  color: const Color(0xffffe37e),
                                   child: const Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -963,7 +974,7 @@ class _DonetionPageState extends State<DonetionPage> {
                               Container(
                                   width: double.infinity,
                                   padding: const EdgeInsets.all(10),
-                                  color: const Color(0xffffecec),
+                                  color: const Color(0xffffe37e),
                                   child: const Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -988,7 +999,7 @@ class _DonetionPageState extends State<DonetionPage> {
                               Container(
                                   width: double.infinity,
                                   padding: const EdgeInsets.all(10),
-                                  color: const Color(0xffffdbda),
+                                  color: const Color(0xffffeeb2),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -1013,7 +1024,7 @@ class _DonetionPageState extends State<DonetionPage> {
                               Container(
                                   width: double.infinity,
                                   padding: const EdgeInsets.all(10),
-                                  color: const Color(0xffffecec),
+                                  color: const Color(0xffffe37e),
                                   child: const Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -1079,7 +1090,7 @@ class _DonetionPageState extends State<DonetionPage> {
                               Container(
                                   width: double.infinity,
                                   padding: const EdgeInsets.all(10),
-                                  color: const Color(0xffffecec),
+                                  color: const Color(0xffffe37e),
                                   child: const Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -1104,7 +1115,7 @@ class _DonetionPageState extends State<DonetionPage> {
                               Container(
                                   width: double.infinity,
                                   padding: const EdgeInsets.all(10),
-                                  color: const Color(0xffffdbda),
+                                  color: const Color(0xffffeeb2),
                                   child: const Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -1129,7 +1140,7 @@ class _DonetionPageState extends State<DonetionPage> {
                               Container(
                                   width: double.infinity,
                                   padding: const EdgeInsets.all(10),
-                                  color: const Color(0xffffecec),
+                                  color: const Color(0xffffe37e),
                                   child: const Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -1372,7 +1383,7 @@ class _DonetionPageState extends State<DonetionPage> {
                           Container(
                               width: double.infinity,
                               padding: const EdgeInsets.all(10),
-                              color: const Color(0xffffecec),
+                              color: const Color(0xffffe37e),
                               child: const Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -1397,7 +1408,7 @@ class _DonetionPageState extends State<DonetionPage> {
                           Container(
                               width: double.infinity,
                               padding: const EdgeInsets.all(10),
-                              color: const Color(0xffffdbda),
+                              color: const Color(0xffffeeb2),
                               child: const Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -1422,7 +1433,7 @@ class _DonetionPageState extends State<DonetionPage> {
                           Container(
                               width: double.infinity,
                               padding: const EdgeInsets.all(10),
-                              color: const Color(0xffffecec),
+                              color: const Color(0xffffe37e),
                               child: const Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -1488,7 +1499,7 @@ class _DonetionPageState extends State<DonetionPage> {
                           Container(
                               width: double.infinity,
                               padding: const EdgeInsets.all(10),
-                              color: const Color(0xffffecec),
+                              color: const Color(0xffffe37e),
                               child: const Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -1513,7 +1524,7 @@ class _DonetionPageState extends State<DonetionPage> {
                           Container(
                               width: double.infinity,
                               padding: const EdgeInsets.all(10),
-                              color: const Color(0xffffdbda),
+                              color: const Color(0xffffeeb2),
                               child: const Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -1538,7 +1549,7 @@ class _DonetionPageState extends State<DonetionPage> {
                           Container(
                               width: double.infinity,
                               padding: const EdgeInsets.all(10),
-                              color: const Color(0xffffecec),
+                              color: const Color(0xffffe37e),
                               child: const Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -1604,7 +1615,7 @@ class _DonetionPageState extends State<DonetionPage> {
                           Container(
                               width: double.infinity,
                               padding: const EdgeInsets.all(10),
-                              color: const Color(0xffffecec),
+                              color: const Color(0xffffe37e),
                               child: const Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -1629,7 +1640,7 @@ class _DonetionPageState extends State<DonetionPage> {
                           Container(
                               width: double.infinity,
                               padding: const EdgeInsets.all(10),
-                              color: const Color(0xffffdbda),
+                              color: const Color(0xffffeeb2),
                               child: const Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -1654,7 +1665,7 @@ class _DonetionPageState extends State<DonetionPage> {
                           Container(
                               width: double.infinity,
                               padding: const EdgeInsets.all(10),
-                              color: const Color(0xffffecec),
+                              color: const Color(0xffffe37e),
                               child: const Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -1810,6 +1821,10 @@ class _DonetionPageState extends State<DonetionPage> {
         (isLunch ? lunchAmount * totalCanteen! : 0) +
         (isDinner ? dinnerAmount * totalCanteen! : 0);
 
+    Statebrack = breakfastAmount * totalCanteen!;
+    Statelunch = lunchAmount * totalCanteen!;
+    Statedine = dinnerAmount * totalCanteen!;
+
     print('Total Amount: $totalAmount');
   }
 
@@ -1911,6 +1926,9 @@ class _DonetionPageState extends State<DonetionPage> {
               'name': item['name'],
             });
           }
+          disbrack = breakfastAmount + totalDis!;
+          dislucnch = lunchAmount + totalDis!;
+          disdin = dinnerAmount + totalDis!;
         });
       } else {
         print('Not able to get countries');
